@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" id="total">
+    <head>
+        
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Menú Restaurante</title>  
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand">Lista de productos</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="/viewer">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/new" >Añadir producto</a></li>
+                    </ul>
+                    <form class="d-flex">
+                        <button class="btn btn-soutline-primary">
+                            Número de productos
+                            <span class="badge bg-dark text-white ms-1 rounded-pill" id="product_counter"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div id="principal">
+            <section class="py-5 bg-light">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <h2 class="fw-bolder mb-4">Productos</h2>
+                    <div class="row text-center mb-10">
+                        <div class="col-mb-12 ">&nbsp;</div>
+                    </div>
+                    <div id="item_menu" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {{#posts}}
+                    <a href="post/{{id}}">{{user}} {{title}} {{text}}</a><br>
+                    {{/posts}}
+                    <a href="/new">new element</a><br>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Creado por Manuel López Corchado y Adrián Esteban Martín</p></div>
+        </footer>
+    </div>  
+    </body>
+        <base href="/">
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="fork_icon.png" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href={{cssfile}} rel="stylesheet" />
+        <!-- Bootstrap core JS-->
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src={{jsfile}}></script>
+        <!--(Bootstrap)-->
+
+      
+</html>

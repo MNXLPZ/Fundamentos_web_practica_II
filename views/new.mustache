@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" id="total">
+    <head>
+        
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Menú Restaurante</title>  
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#!">Lista de productos</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="#!" onclick=volver()>Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!" onclick=crearElemento(0)>Añadir producto</a></li>
+                    </ul>
+                    <form class="d-flex">
+                        <button class="btn btn-outline-primary">
+                            Número de productos
+                            <span class="badge bg-dark text-white ms-1 rounded-pill" id="product_counter"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div id="principal">
+                <div class=" quest">
+    <form id="product_form" action="created" role="form">
+    <div id="quiz">
+        <div class="form-group">
+            <label for="tipo_producto" name="tipo_producto_label">Categoría de producto:</label>
+            <input type="text" name="categoria_producto" class="form-control" size="25" id="product_category" placeholder="Ingresa el tipo de producto a añadir" required>
+        </div>
+        <div class="form-group">
+            <label for="nombre_producto" name="nombre_producto_label">Nombre:</label>
+            <input type="text" name="nombre_producto" class="form-control" id="product_name" placeholder="Ingresa el nombre del producto" required>
+        </div>
+        <div class="form-group">
+            <label for="descripción_producto" name="descripción_producto_label">Descripción del producto:</label>
+            <input type="text" name="descripción_producto" class="form-control" id="product_description" placeholder="Ingresa la descripción" required>
+        </div> 
+        <div class="form-group">
+            <label for="ingredientes_producto" name="ingredientes_producto_label">Ingredientes del producto:</label>
+            <input type="text" name="ingredientes_producto" class="form-control" id="product_ingredients" placeholder="Ingresa los ingredientes separados por un guión (-)" required>
+        </div>
+        <div class="form-group">
+        <label for="foto_producto" name="foto_producto_label">Link de foto del producto <span style="color:lightgrey">(Opcional)</span></label>
+        <input type="text" name="foto_producto" class="form-control" id="product_link" placeholder="Ingresa el enlace">
+        </div>
+    </div>
+        <br>
+        <div class="form-group">
+        <label for="valoracion_producto">Valoración de producto</label>
+        <select name="valoracion_producto" id="product_valoration">
+            <option value="1">1 estrella</option>
+            <option value="2">2 estrellas</option>
+            <option value="3">3 estrellas</option>
+            <option value="4">4 estrellas</option>
+            <option value="5">5 estrellas</option>
+        </select>
+        </div>
+        <br>
+        <div class="text-center">
+        <input type="submit" class="btn btn-outline-dark mt-auto"value="Confirmar modificación">
+        <button type="button" class="btn btn-outline-dark mt-auto"value="cancelar">Cancelar</button>
+        </div>
+    </form>   
+</div><br>
+
+        </div>
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Creado por Manuel López Corchado y Adrián Esteban Martín</p></div>
+        </footer>
+    </div>  
+    </body>
+        <base href="/">
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="fork_icon.png" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href={{cssfile}} rel="stylesheet" />
+        <!-- Bootstrap core JS-->
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src={{jsfile}}></script>
+        <!--(Bootstrap)-->
+
+      
+</html>
