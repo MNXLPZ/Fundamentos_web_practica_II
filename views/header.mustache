@@ -16,13 +16,13 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link" aria-current="page" href="/viewer">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="/">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="/new" >Añadir producto</a></li>
                     </ul>
                     <form class="d-flex">
-                        <button class="btn btn-soutline-primary">
+                        <button class="btn btn-outline-primary">
                             Número de productos
-                            <span class="badge bg-dark text-white ms-1 rounded-pill" id="product_counter"></span>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill" id="product_counter">{{productCounter}}</span>
                         </button>
                     </form>
                 </div>
@@ -37,9 +37,52 @@
                     </div>
                     <div id="item_menu" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     {{#posts}}
-                    <a href="post/{{id}}">{{user}} {{title}} {{text}}</a><br>
+                    <div class="col mb-5">
+                                <div class="card h-100">
+                                    <!-- Product image-->
+                                    <img class="card-img-top" src="{{link}}" alt="..." />
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder"><span>{{title}}</span></h5>
+                                            <b>{{category}}</b> <br>
+                                            {{description}}
+                                            <div class="pru" id="stars{{id}}">
+                                                <script>
+                                                    function starPainter (number){
+                                                        let contentToRender = document.getElementById('stars{{id}}');
+                                                        content='';
+                                                        for (i=1; i<=number; i++) {
+                                                            contentToRender.innerHTML +='<div class="bi-star-fill"></div>';
+                                                        }
+                                                    };
+                                                    starPainter(parseInt({{valoration}}))
+                                                </script>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto"" href="post/{{id}}">Mas info</a></div>
+                                    </div>
+                                </div>
+                            </div> 
+
                     {{/posts}}
-                    <a href="/new">new element</a><br>
+
+
+
+
+
+
+
+
+
+
+
+
                     </div>
                 </div>
             </section>

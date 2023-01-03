@@ -7,31 +7,33 @@ const router = express.Router();
 
 
 
-
+/*
 router.get('/', (req, res) => {
-    res.render('head', { 
+    res.render('header', { 
     //cssfile: __dirname+"/../public/styles.css",
     //jsfile: __dirname+"/../src/scripts.js"
     cssfile: "styles.css",
     jsfile: "scripts.js"
     });
 });
+*/
 router.get('/pruebas', (req, res) => {
     res.render('greeting', {
         name: req.query.userName
     });
 });
 
-router.get('/viewer', (req, res) => {
-    res.render('viewer', {
-    id:services.getPosts().id,
+router.get('/', (req, res) => {
+    res.render('header', {
        posts:services.getPosts(),
-       cssfile: "styles.css"
+       cssfile: "styles.css",
+       productCounter:services.getPostNumber()
     });
 });
 router.get('/new', (req, res) => {
     res.render('new', {
-       cssfile: "styles.css"
+       cssfile: "styles.css",
+       productCounter:services.getPostNumber()
     });
 });
 
@@ -42,13 +44,15 @@ router.get('/created', (req, res) => {
     let name = req.query.nombre_producto;
     let description = req.query.descricpión_producto;
     let ingredients = req.query.ingredientes_producto;
-    let valoration = req.query.valoración_producto;
+    let valoration = req.query.valoracion_producto;
     let link = req.query.foto_producto
-    console.log(category + name+ description);
+    if (link == '')
+        link='https://dummyimage.com/450x300/dee2e6/6c757d.jpg';
+    console.log(valoration,+'  '+link);
 
-    services.addPost({title:name, description:description, category:category, ingredients:ingredients, valoration:valoration, link:link});
+    services.addPost({title:name, description:description, category:category, ingredients:ingredients.split('-'), valoration:valoration, link:link});
 
-    res.redirect('/viewer'); //redirección a /viewer para evitar copias de elemento al recargar la página
+    res.redirect('/'); //redirección a /viewer para evitar copias de elemento al recargar la página
 });
 
 router.get('/post/:id', (req, res) => {
@@ -62,7 +66,8 @@ router.get('/post/:id', (req, res) => {
         valoration: scripts.valorationForMustache(parseInt(post.valoration)),
         link: scripts.pictureLinkBig(post.link),
         cssfile: "styles.css",
-        jsfile: "scripts.cjs"
+        jsfile: "scripts.cjs",
+        productCounter:services.getPostNumber()
     });
 });
 /*
@@ -121,7 +126,17 @@ router.get('/post/:postid/deleteIngredient/:ingredientid', (req,res) => {
         ingredientid,
         post,
         jsfile: "scripts.cjs",
-       cssfile: "styles.css"
+       cssfile: "styles.css",
+       productCounter:services.getPostNumber()
     });
 });
+
+router.get('/post/:id/addIngredient', (req,res) => {
+    let id = req.params.id;
+    let post=services.getPost(id);
+    let newIngredient=req.query.newIngredient;
+    console.log(newIngredient);
+    post.ingredients.push(newIngredient);
+    res.redirect(`/post/${id}`);
+}); 
 export default router;
