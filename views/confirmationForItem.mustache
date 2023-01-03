@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en" id="total">
     <head>
         
@@ -12,7 +12,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand">Lista de productos</a>
+                <a class="navbar-brand" >Lista de productos</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -22,29 +22,26 @@
                     <form class="d-flex">
                         <button class="btn btn-outline-primary">
                             Número de productos
-                            <span class="badge bg-dark text-white ms-1 rounded-pill" id="product_counter"></span>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill" id="product_counter">{{productCounter}}</span>
                         </button>
                     </form>
                 </div>
             </div>
         </nav>
         <div id="principal">
-            <section class="py-5 bg-light">
-                <div class="container px-4 px-lg-5 mt-5">
-                    <h2 class="fw-bolder mb-4">Productos</h2>
-                    <div class="row text-center mb-10">
-                        <div class="col-mb-12 ">&nbsp;</div>
-                    </div>
-                    <div id="item_menu" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    
-                    </div>
-                </div>
-            </section>
-        </div>
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Creado por Manuel López Corchado y Adrián Esteban Martín</p></div>
-        </footer>
-    </div>  
+<center>
+<p class="display-5 fw-bolder"> Estás tratando de eliminar: </p> <br>
+<p class="display-10 fw-bolder">Elemento "{{post.title}}"<p> <br>
+<a class="btn btn-outline-dark flex-shrink-0 me-3" href ="/post/{{post.id}}/deletePost/deleted" type="button">
+                                Eliminar
+</a>
+<a class="btn btn-outline-dark flex-shrink-0 me-3" href ="/post/{{post.id}}" type="button">
+                                Cancelar
+</a>
+
+</center>
+
+
     </body>
         <base href="/">
         <!-- Favicon-->
@@ -61,4 +58,3 @@
 
       
 </html>
-

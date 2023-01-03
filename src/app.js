@@ -19,6 +19,7 @@ app.use('/', greetingRouter);
 
 export const posts = new Map();
 let nextId = 0;
+let deletedCount =0;
 addPost({ 
     title: "Agua",
     description: "Botella de agua",
@@ -68,5 +69,11 @@ export function getPost(id){
 export function getPostNumber(){
     return nextId;
 }
-
+export function addDeletedCount(){
+    deletedCount++;
+}
+export function getDeletedCount(){
+    return deletedCount;
+}
+console.log(getPostNumber()-getDeletedCount());
 app.listen(3000, () => console.log('Listening on port 3000!'));

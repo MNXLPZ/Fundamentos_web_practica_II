@@ -30,7 +30,7 @@
         </nav>
         <div id="principal">
                 <div class=" quest">
-    <form id="product_form" action="created" role="form">
+    <form id="product_form" action="/post/{{post.id}}/modification/done" role="form">
     <div id="quiz">
         <div class="form-group">
             <label for="tipo_producto" name="tipo_producto_label">Categoría de producto:</label>
@@ -41,7 +41,7 @@
             <input type="text" name="nombre_producto" class="form-control" id="product_name" placeholder="Ingresa el nombre del producto" required>
         </div>
         <div class="form-group">
-            <label for="descripcion_producto" name="descripción_producto_label">Descripción del producto:</label>
+            <label for="descripcion_producto" name="descripcion_producto_label">Descripción del producto:</label>
             <input type="text" name="descripcion_producto" class="form-control" id="product_description" placeholder="Ingresa la descripción" required>
         </div> 
         <div class="form-group">
@@ -67,9 +67,22 @@
         <br>
         <div class="text-center">
         <input type="submit" class="btn btn-outline-dark mt-auto"value="Confirmar modificación">
-        <a type="button" class="btn btn-outline-dark mt-auto"value="cancelar" href="/">Cancelar</a>
-        </div>
-    </form>   
+    </form> 
+        <a type="button" class="btn btn-outline-dark mt-auto"value="cancelar" href="/post/{{post.id}}">Cancelar</a>
+        </div>  
+    <script>
+function formSetter(){
+    let link='{{post.link}}';
+    document.getElementById('product_category').value='{{post.category}}';
+    document.getElementById('product_name').value='{{post.title}}';
+    document.getElementById('product_description').value='{{post.description}}';
+    document.getElementById('product_ingredients').value='{{ingredientsArray}}';
+    document.getElementById('product_valoration').value={{post.valoration}};
+    document.getElementById('product_link').value=(link.split('&#x2F;')).join('/'); //Si no se hace el split/join genera el unicode de '/' en el link
+};
+
+formSetter();
+    </script>
 </div><br>
 
         </div>

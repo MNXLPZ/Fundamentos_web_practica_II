@@ -16,24 +16,24 @@ router.get('/', (req, res) => {
     jsfile: "scripts.js"
     });
 });
-*/
+
 router.get('/pruebas', (req, res) => {
     res.render('greeting', {
         name: req.query.userName
     });
 });
-
+*/
 router.get('/', (req, res) => {
     res.render('header', {
        posts:services.getPosts(),
        cssfile: "styles.css",
-       productCounter:services.getPostNumber()
+       productCounter:((services.getPostNumber()-services.getDeletedCount()))
     });
 });
 router.get('/new', (req, res) => {
     res.render('new', {
        cssfile: "styles.css",
-       productCounter:services.getPostNumber()
+       productCounter:((services.getPostNumber()-services.getDeletedCount()))
     });
 });
 
@@ -42,7 +42,7 @@ router.get('/created', (req, res) => {
     console.log('trough')
     let category=req.query.categoria_producto;
     let name = req.query.nombre_producto;
-    let description = req.query.descricpión_producto;
+    let description = req.query.descripcion_producto;
     let ingredients = req.query.ingredientes_producto;
     let valoration = req.query.valoracion_producto;
     let link = req.query.foto_producto
@@ -67,7 +67,7 @@ router.get('/post/:id', (req, res) => {
         link: scripts.pictureLinkBig(post.link),
         cssfile: "styles.css",
         jsfile: "scripts.cjs",
-        productCounter:services.getPostNumber()
+        productCounter:((services.getPostNumber()-services.getDeletedCount()))
     });
 });
 /*
@@ -83,21 +83,37 @@ router.get('/post/:id/modif', (req, res) => {  //esta se sitúa en /post/:id/mod
     });
 }); */
 
-router.get('/post/:id/modif', (req, res) => { //esta se sitúa en el mismo link en el que estaba (ambas funcionan y hacen lo mismo)
+router.get('/post/:id/modification', (req, res) => {
     let id =req.params.id;
     let post = services.getPost(id);
     console.log(post);
-    post.title='Prueba modificacion';
+    res.render(`modification`,{
+        jsfile: "scripts.cjs",
+        cssfile: "styles.css",
+        post,
+        ingredientsArray: post.ingredients.join('-'),
+        productCounter:((services.getPostNumber()-services.getDeletedCount()))
+    });
+});
+router.get('/post/:id/modification/done', (req, res) => {
+    let id = req.params.id;
+    let post=services.getPost(id);
+    post.category=req.query.categoria_producto;
+    post.title = req.query.nombre_producto;
+    post.description = req.query.descripcion_producto;
+    post.ingredients = req.query.ingredientes_producto.split('-');
+    post.valoration = req.query.valoracion_producto;
+    let link = req.query.foto_producto
+    if (link == '')
+    link='https://dummyimage.com/450x300/dee2e6/6c757d.jpg';
+    post.link=link;
+    console.log(post);
     res.redirect(`/post/${id}`);
 });
-
 router.get('/post/:postid/deleteIngredient/:ingredientid/deleted', (req,res) => {
     let id=req.params.postid;
     let ingredientid=req.params.ingredientid;
     //let confirmation =confirm("¿Esta seguro de que quiere borrar el ingrediente?");
-
-    console.log('trough');
-
             let post = services.getPost(id);
             console.log(post);
             post.ingredients.splice(ingredientid,1);
@@ -120,14 +136,24 @@ router.get('/post/:postid/deleteIngredient/:ingredientid', (req,res) => {
     let id=req.params.postid;
     let ingredientid=req.params.ingredientid;
     let post=services.getPost(id);
-    res.render('confirmation', {
+    res.render('confirmationForIngredient', {
         ingredientToDelete:post.ingredients[ingredientid],
         id,
         ingredientid,
         post,
         jsfile: "scripts.cjs",
        cssfile: "styles.css",
-       productCounter:services.getPostNumber()
+       productCounter:((services.getPostNumber()-services.getDeletedCount()))
+    });
+});
+router.get('/post/:postid/deletePost', (req,res) => {
+    let id=req.params.postid;
+    let post=services.getPost(id);
+    res.render('confirmationForItem', {
+        post,
+        jsfile: "scripts.cjs",
+       cssfile: "styles.css",
+       productCounter:((services.getPostNumber()-services.getDeletedCount()))
     });
 });
 
@@ -139,4 +165,13 @@ router.get('/post/:id/addIngredient', (req,res) => {
     post.ingredients.push(newIngredient);
     res.redirect(`/post/${id}`);
 }); 
+
+
+router.get('/post/:id/deletePost/deleted', (req,res) => {
+    let id = req.params.id;
+    services.addDeletedCount();
+    console.log(services.getDeletedCount());
+services.deletePost(id);
+    res.redirect(`/`);
+});
 export default router;

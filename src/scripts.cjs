@@ -318,7 +318,7 @@ function pictureLinkSmall(link){
         return link;
 }
 function pictureLinkBig(link){
-    if (link == '' || link== 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg')
+    if (link== 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg')
     link= 'https://dummyimage.com/600x700/dee2e6/6c757d.jpg';
     
         return link;
