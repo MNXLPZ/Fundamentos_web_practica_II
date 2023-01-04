@@ -1,0 +1,35 @@
+                    {{#posts}}
+                    <div class="col mb-5">
+                                <div class="card h-100">
+                                    <!-- Product image-->
+                                    <img class="card-img-top" src="{{link}}" alt="..." />
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder"><span>{{title}}</span></h5>
+                                            <b>{{category}}</b> <br>
+                                            {{description}}
+                                            <div class="pru" id="stars{{id}}">
+                                                <script>
+                                                    function starPainter (number){
+                                                        let contentToRender = document.getElementById('stars{{id}}');
+                                                        content='';
+                                                        for (i=1; i<=number; i++) {
+                                                            contentToRender.innerHTML +='<div class="bi-star-fill"></div>';
+                                                        }
+                                                    };
+                                                    starPainter(parseInt({{valoration}}))
+                                                </script>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto"" href="post/{{id}}">Mas info</a></div>
+                                    </div>
+                                </div>
+                            </div> 
+
+                    {{/posts}}

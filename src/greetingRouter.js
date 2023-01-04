@@ -1,7 +1,7 @@
 import express from 'express';
 import { __dirname } from './dirname.js';
-import * as services from './app.js';
-import * as scripts from './scripts.cjs';
+import * as services from './restaurantService.js';
+// import * as scripts from './scripts.cjs';
 const router = express.Router();
 
 
@@ -25,7 +25,7 @@ router.get('/pruebas', (req, res) => {
 */
 router.get('/', (req, res) => {
     res.render('header', {
-       posts:services.getPosts(),
+       posts:services.getPosts(0,5),
        cssfile: "styles.css",
        productCounter:((services.getPostNumber()-services.getDeletedCount()))
     });
@@ -63,10 +63,11 @@ router.get('/post/:id', (req, res) => {
         id,
         post,
        // ingredients: scripts.pintarIngredientes(post),
-        valoration: scripts.valorationForMustache(parseInt(post.valoration)),
-        link: scripts.pictureLinkBig(post.link),
+        valoration: services.valorationForMustache(parseInt(post.valoration)),
+        // link: scripts.pictureLinkBig(post.link),
+        link: post.link,
         cssfile: "styles.css",
-        jsfile: "scripts.cjs",
+        // jsfile: "scripts.cjs",
         productCounter:((services.getPostNumber()-services.getDeletedCount()))
     });
 });
@@ -88,7 +89,7 @@ router.get('/post/:id/modification', (req, res) => {
     let post = services.getPost(id);
     console.log(post);
     res.render(`modification`,{
-        jsfile: "scripts.cjs",
+        // jsfile: "scripts.cjs",
         cssfile: "styles.css",
         post,
         ingredientsArray: post.ingredients.join('-'),
@@ -141,8 +142,8 @@ router.get('/post/:postid/deleteIngredient/:ingredientid', (req,res) => {
         id,
         ingredientid,
         post,
-        jsfile: "scripts.cjs",
-       cssfile: "styles.css",
+        // jsfile: "scripts.cjs",
+        cssfile: "styles.css",
        productCounter:((services.getPostNumber()-services.getDeletedCount()))
     });
 });
@@ -151,7 +152,7 @@ router.get('/post/:postid/deletePost', (req,res) => {
     let post=services.getPost(id);
     res.render('confirmationForItem', {
         post,
-        jsfile: "scripts.cjs",
+        // jsfile: "scripts.cjs",
        cssfile: "styles.css",
        productCounter:((services.getPostNumber()-services.getDeletedCount()))
     });
@@ -174,4 +175,17 @@ router.get('/post/:id/deletePost/deleted', (req,res) => {
 services.deletePost(id);
     res.redirect(`/`);
 });
+
+router.get('/morepost', (req, res) => {
+
+    const from = parseInt(req.query.from);
+    const to = parseInt(req.query.to);
+
+    const products = services.getPosts(from,to);
+
+    res.render('moreproducts', {
+        posts: products
+    });
+});
+
 export default router;
