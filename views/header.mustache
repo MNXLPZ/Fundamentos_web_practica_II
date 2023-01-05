@@ -49,16 +49,7 @@
                                             <b>{{category}}</b> <br>
                                             {{description}}
                                             <div class="pru" id="stars{{id}}">
-                                                <script>
-                                                    function starPainter (number){
-                                                        let contentToRender = document.getElementById('stars{{id}}');
-                                                        content='';
-                                                        for (i=1; i<=number; i++) {
-                                                            contentToRender.innerHTML +='<div class="bi-star-fill"></div>';
-                                                        }
-                                                    };
-                                                    starPainter(parseInt({{valoration}}))
-                                                </script>
+                                            {{{stars}}}
                                             </div>
                                             
                                         </div>

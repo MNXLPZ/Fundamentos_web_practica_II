@@ -39,17 +39,7 @@
                             <p>{{post.description}}     <span style="color:lightgrey">{{post.category}}</span></p>
                         <p style="text-aling:left;">
                         <div class="d-flex justify-content-left small text-warning mb-2" id="stars">
-
-                        <script>
-                        function starPainter (number){
-                             let contentToRender = document.getElementById('stars');
-                            content='';
-                            for (i=1; i<=number; i++) {
-                                contentToRender.innerHTML +='<div class="bi-star-fill"></div>';
-                            }
-                        };
-                        starPainter(parseInt({{post.valoration}}))
-                        </script>
+                        {{{post.stars}}}
                         </div>
                         <!--
                         {{#valoration}}

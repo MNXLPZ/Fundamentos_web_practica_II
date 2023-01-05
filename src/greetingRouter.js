@@ -30,12 +30,6 @@ router.get('/', (req, res) => {
        productCounter:((services.getPostNumber()-services.getDeletedCount()))
     });
 });
-router.get('/new', (req, res) => {
-    res.render('new', {
-       cssfile: "styles.css",
-       productCounter:((services.getPostNumber()-services.getDeletedCount()))
-    });
-});
 
 router.get('/created', (req, res) => {
 
@@ -50,7 +44,12 @@ router.get('/created', (req, res) => {
         link='https://dummyimage.com/450x300/dee2e6/6c757d.jpg';
     console.log(valoration,+'  '+link);
 
-    services.addPost({title:name, description:description, category:category, ingredients:ingredients.split('-'), valoration:valoration, link:link});
+    let stars='';
+    for (let i=1; i<=parseInt(valoration); i++) {
+        stars +='<div class="bi-star-fill"></div>'; 
+    }
+
+    services.addPost({title:name, description:description, category:category, ingredients:ingredients.split('-'), valoration:valoration, stars:stars, link:link});
 
     res.redirect('/'); //redirección a /viewer para evitar copias de elemento al recargar la página
 });
@@ -63,7 +62,7 @@ router.get('/post/:id', (req, res) => {
         id,
         post,
        // ingredients: scripts.pintarIngredientes(post),
-        valoration: services.valorationForMustache(parseInt(post.valoration)),
+        //valoration: services.valorationForMustache(parseInt(post.valoration)),
         // link: scripts.pictureLinkBig(post.link),
         link: post.link,
         cssfile: "styles.css",
@@ -88,17 +87,31 @@ router.get('/post/:id/modification', (req, res) => {
     let id =req.params.id;
     let post = services.getPost(id);
     console.log(post);
-    res.render(`modification`,{
+    res.render(`new_modification`,{
         // jsfile: "scripts.cjs",
+        actionForm1:"/post/",
+        actionForm2:"/modification/done",
+        message:"Confirmar modificación",
+        backLink:"/post/",
         cssfile: "styles.css",
         post,
         ingredientsArray: post.ingredients.join('-'),
         productCounter:((services.getPostNumber()-services.getDeletedCount()))
     });
 });
+router.get('/new', (req, res) => {
+    res.render('new_modification', {
+       cssfile: "styles.css",
+       actionForm1:"/created",
+       message:"Crear Item",
+       backLink:"/",
+       productCounter:((services.getPostNumber()-services.getDeletedCount()))
+    });
+});
 router.get('/post/:id/modification/done', (req, res) => {
     let id = req.params.id;
     let post=services.getPost(id);
+    console.log(req.query.categoria_producto);
     post.category=req.query.categoria_producto;
     post.title = req.query.nombre_producto;
     post.description = req.query.descripcion_producto;
@@ -107,6 +120,11 @@ router.get('/post/:id/modification/done', (req, res) => {
     let link = req.query.foto_producto
     if (link == '')
     link='https://dummyimage.com/450x300/dee2e6/6c757d.jpg';
+    let stars='';
+    for (let i=1; i<=parseInt(post.valoration); i++) {
+        stars +='<div class="bi-star-fill"></div>'; //cambiar en modification
+    }
+    post.stars=stars;
     post.link=link;
     console.log(post);
     res.redirect(`/post/${id}`);
