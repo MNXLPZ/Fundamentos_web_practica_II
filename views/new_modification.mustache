@@ -33,30 +33,30 @@
     <form id="product_form" action="{{actionForm1}}{{post.id}}{{actionForm2}}" role="form">
     <div id="quiz">
         <div class="form-group">
-            <label for="tipo_producto" name="tipo_producto_label">Categoría de producto:</label>
-            <input type="text" name="categoria_producto" class="form-control" size="25" id="product_category" placeholder="Ingresa el tipo de producto a añadir" required>
+            <label for="product_category" name="product_category_label">Categoría de producto:</label>
+            <input type="text" name="product_category" class="form-control" size="25" id="product_category" placeholder="Ingresa el tipo de producto a añadir" required>
         </div>
         <div class="form-group">
-            <label for="nombre_producto" name="nombre_producto_label">Nombre:</label>
-            <input type="text" name="nombre_producto" class="form-control" id="product_name" placeholder="Ingresa el nombre del producto" value=""required>
+            <label for="product_title" name="product_title_label">Nombre:</label>
+            <input type="text" name="product_title" class="form-control" id="product_title" placeholder="Ingresa el nombre del producto" value=""required>
         </div>
         <div class="form-group">
-            <label for="descripcion_producto" name="descripción_producto_label">Descripción del producto:</label>
-            <input type="text" name="descripcion_producto" class="form-control" id="product_description" placeholder="Ingresa la descripción" required>
+            <label for="product_description" name="product_description_label">Descripción del producto:</label>
+            <input type="text" name="product_description" class="form-control" id="product_description" placeholder="Ingresa la descripción" required>
         </div> 
         <div class="form-group">
-            <label for="ingredientes_producto" name="ingredientes_producto_label">Ingredientes del producto:</label>
-            <input type="text" name="ingredientes_producto" class="form-control" id="product_ingredients" placeholder="Ingresa los ingredientes separados por un guión (-)" required>
+            <label for="product_ingredients" name="product_ingredients_label">Ingredientes del producto:</label>
+            <input type="text" name="product_ingredients" class="form-control" id="product_ingredients" placeholder="Ingresa los ingredientes separados por un guión (-)" required>
         </div>
         <div class="form-group">
-        <label for="foto_producto" name="foto_producto_label">Link de foto del producto <span style="color:lightgrey">(Opcional)</span></label>
-        <input type="text" name="foto_producto" class="form-control" id="product_link" placeholder="Ingresa el enlace">
+        <label for="product_image" name="product_image_label">Link de foto del producto <span style="color:lightgrey">(Opcional)</span></label>
+        <input type="text" name="product_image" class="form-control" id="product_image" placeholder="Ingresa el enlace">
         </div>
     </div>
         <br>
         <div class="form-group">
-        <label for="valoracion_producto">Valoración de producto</label>
-        <select name="valoracion_producto" id="product_valoration">
+        <label for="product_valoration">Valoración de producto</label>
+        <select name="product_valoration" id="product_valoration">
             <option value="1">1 estrella</option>
             <option value="2">2 estrellas</option>
             <option value="3">3 estrellas</option>
@@ -75,11 +75,11 @@
         function formSetter(){
             let link='{{post.link}}';
             document.getElementById('product_category').value='{{post.category}}';
-            document.getElementById('product_name').value='{{post.title}}';
+            document.getElementById('product_title').value='{{post.title}}';
             document.getElementById('product_description').value='{{post.description}}';
             document.getElementById('product_ingredients').value='{{ingredientsArray}}';
             document.getElementById('product_valoration').value={{post.valoration}};
-            document.getElementById('product_link').value=(link.split('&#x2F;')).join('/'); //Si no se hace el split/join genera el unicode de '/' en el link
+            document.getElementById('product_image').value=(link.split('&#x2F;')).join('/'); //Si no se hace el split/join genera el unicode de '/' en el link
         };
     formSetter();
     </script>

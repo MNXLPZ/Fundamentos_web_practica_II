@@ -12,9 +12,8 @@ app.engine('mustache', mustacheExpress());
 
 app.use(bodyParser.urlencoded({ extended: true })); 
 
-app.use(express.static(__dirname)); //dirname devuelve la ruta de la carpeta en la que estamos (src), la función devuelve la ruta de public
+app.use(express.static(__dirname)); //dirname devuelve la ruta de la carpeta estática, devolvería la ruta de public
 console.log('la ruta express static es  '+__dirname);
-
 app.use('/', greetingRouter);
 
 app.listen(3000, () => console.log('Listening on port 3000!'));

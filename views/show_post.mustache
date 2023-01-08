@@ -41,23 +41,9 @@
                         <div class="d-flex justify-content-left small text-warning mb-2" id="stars">
                         {{{post.stars}}}
                         </div>
-                        <!--
-                        {{#valoration}}
-                        <div class="bi-star-fill"></div>
-                        {{/valoration}}
-                        </div>
-                        </p> 
-                        
-                        {{#post.ingredients}}
-                        <p class="lead">{{.}} 
-                        <button class="btn btn-outline-dark flex-shrink-0 me-3" type="button" onclick="borrarIngrediente(`+i+`,`+post+`)">
-                                Borrar ingrediente
-                        </button></p>
-                        {{/post.ingredients}}
-                        -->
                         <div id="Ingredients_content">
                         <script>
-                        function pintarIngredientes(array){
+                        function paintIngredients(array){
                              let ingredientsToRender = document.getElementById('Ingredients_content');
 
                             for (let i = 0; i < array.length; i++) {
@@ -66,7 +52,6 @@
                                     Borrar ingrediente
                                 </a></p>`;
                             }
-                            //return Ingredients_rendered;
 
                         }
 
@@ -74,7 +59,7 @@
                         {{#post.ingredients}}
                         ingredientsToPaint.push('{{.}}');
                         {{/post.ingredients}}
-                        pintarIngredientes(ingredientsToPaint);    
+                        paintIngredients(ingredientsToPaint);    
                         </script>
 
 
@@ -115,12 +100,7 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href={{cssfile}} rel="stylesheet" />
         <!-- Bootstrap core JS-->
-        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <!--script src={{jsfile}}></script-->
-        <!--(Bootstrap)-->
-
-      
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>   
 </html>
  
   

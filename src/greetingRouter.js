@@ -1,28 +1,10 @@
 import express from 'express';
 import { __dirname } from './dirname.js';
 import * as services from './restaurantService.js';
-// import * as scripts from './scripts.cjs';
+
 const router = express.Router();
 
 
-
-
-/*
-router.get('/', (req, res) => {
-    res.render('header', { 
-    //cssfile: __dirname+"/../public/styles.css",
-    //jsfile: __dirname+"/../src/scripts.js"
-    cssfile: "styles.css",
-    jsfile: "scripts.js"
-    });
-});
-
-router.get('/pruebas', (req, res) => {
-    res.render('greeting', {
-        name: req.query.userName
-    });
-});
-*/
 router.get('/', (req, res) => {
     res.render('header', {
        posts:services.getPosts(0,5),
@@ -34,12 +16,12 @@ router.get('/', (req, res) => {
 router.get('/created', (req, res) => {
 
     console.log('trough')
-    let category=req.query.categoria_producto;
-    let name = req.query.nombre_producto;
-    let description = req.query.descripcion_producto;
-    let ingredients = req.query.ingredientes_producto;
-    let valoration = req.query.valoracion_producto;
-    let link = req.query.foto_producto
+    let category=req.query.product_category;
+    let name = req.query.product_title;
+    let description = req.query.product_description;
+    let ingredients = req.query.product_ingredients;
+    let valoration = req.query.product_valoration;
+    let link = req.query.product_image;
     if (link == '')
         link='https://dummyimage.com/450x300/dee2e6/6c757d.jpg';
     console.log(valoration,+'  '+link);
@@ -51,7 +33,7 @@ router.get('/created', (req, res) => {
 
     services.addPost({title:name, description:description, category:category, ingredients:ingredients.split('-'), valoration:valoration, stars:stars, link:link});
 
-    res.redirect('/'); //redirección a /viewer para evitar copias de elemento al recargar la página
+    res.redirect('/'); 
 });
 
 router.get('/post/:id', (req, res) => {
@@ -61,27 +43,12 @@ router.get('/post/:id', (req, res) => {
     res.render('show_post', {
         id,
         post,
-       // ingredients: scripts.pintarIngredientes(post),
-        //valoration: services.valorationForMustache(parseInt(post.valoration)),
-        // link: scripts.pictureLinkBig(post.link),
         link: post.link,
         cssfile: "styles.css",
         // jsfile: "scripts.cjs",
         productCounter:((services.getPostNumber()-services.getDeletedCount()))
     });
 });
-/*
-router.get('/post/:id/modif', (req, res) => {  //esta se sitúa en /post/:id/modif
-    let id =req.params.id;
-    let post = services.getPost(id);
-    console.log(post);
-    post.user='Prueba modificacion';
-    res.render('show_post', {
-        id,
-        post,
-        cssfile: "styles.css"
-    });
-}); */
 
 router.get('/post/:id/modification', (req, res) => {
     let id =req.params.id;
@@ -112,17 +79,17 @@ router.get('/post/:id/modification/done', (req, res) => {
     let id = req.params.id;
     let post=services.getPost(id);
     console.log(req.query.categoria_producto);
-    post.category=req.query.categoria_producto;
-    post.title = req.query.nombre_producto;
-    post.description = req.query.descripcion_producto;
-    post.ingredients = req.query.ingredientes_producto.split('-');
-    post.valoration = req.query.valoracion_producto;
-    let link = req.query.foto_producto
+    post.category=req.query.product_category;
+    post.title = req.query.product_title;
+    post.description = req.query.product_description;
+    post.ingredients = req.query.product_ingredients.split('-');
+    post.valoration = req.query.product_valoration;
+    let link = req.query.product_image;
     if (link == '')
     link='https://dummyimage.com/450x300/dee2e6/6c757d.jpg';
     let stars='';
     for (let i=1; i<=parseInt(post.valoration); i++) {
-        stars +='<div class="bi-star-fill"></div>'; //cambiar en modification
+        stars +='<div class="bi-star-fill"></div>'; 
     }
     post.stars=stars;
     post.link=link;
@@ -132,23 +99,10 @@ router.get('/post/:id/modification/done', (req, res) => {
 router.get('/post/:postid/deleteIngredient/:ingredientid/deleted', (req,res) => {
     let id=req.params.postid;
     let ingredientid=req.params.ingredientid;
-    //let confirmation =confirm("¿Esta seguro de que quiere borrar el ingrediente?");
             let post = services.getPost(id);
             console.log(post);
             post.ingredients.splice(ingredientid,1);
         res.redirect(`/post/${id}`);
-        
-        
-
-
-/*    if (confirmation=true) {
-    let post = services.getPost(id);
-        console.log(post);
-        post.ingredients.splice(ingredientid,1);
-    res.redirect(`/post/${id}`);
-        
-    }
-   */ 
 });
 
 router.get('/post/:postid/deleteIngredient/:ingredientid', (req,res) => {
